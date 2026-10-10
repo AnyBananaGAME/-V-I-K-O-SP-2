@@ -1,4 +1,5 @@
 ﻿
+#include <iomanip>
 #include <iostream>
 #include <string>
 #include <windows.h>
@@ -165,6 +166,41 @@ int main() {
 
       pazymiai[mokinioIndeksas][pazymioNumeris - 1] = naujasPazymys;
       cout << "Pazymys atnaujintas." << endl;
+    }
+    if (pasirinkimas == 5) {
+      if (mokiniuKiekis == 0) {
+        cout << "Mokiniu sarasas tuscias." << endl;
+        continue;
+      }
+
+      for (int i = 0; i < mokiniuKiekis; i++) {
+        cout << i + 1 << " - " << vardai[i] << endl;
+      }
+
+      int mokinioNumeris;
+      cout << "Iveskite mokinio numeri (1-" << mokiniuKiekis << "): ";
+      cin >> mokinioNumeris;
+      while (mokinioNumeris < 1 || mokinioNumeris > mokiniuKiekis) {
+        cout << "Neteisingas mokinio numeris. Iveskite skaiciu nuo 1 iki "
+             << mokiniuKiekis << ": ";
+        cin >> mokinioNumeris;
+      }
+
+      int mokinioIndeksas = mokinioNumeris - 1;
+      if (pazymiuKiekis[mokinioIndeksas] == 0) {
+        cout << "Mokinys pazymiu neturi." << endl;
+        continue;
+      }
+
+      int suma = 0;
+      for (int i = 0; i < pazymiuKiekis[mokinioIndeksas]; i++) {
+        suma += pazymiai[mokinioIndeksas][i];
+      }
+
+      double vidurkis =
+          static_cast<double>(suma) / pazymiuKiekis[mokinioIndeksas];
+      cout << vardai[mokinioIndeksas] << " vidurkis: " << fixed
+           << setprecision(2) << vidurkis << endl;
     }
   }
 
