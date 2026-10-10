@@ -1,4 +1,4 @@
-
+﻿
 #include <iostream>
 #include <string>
 #include <windows.h>
@@ -9,24 +9,28 @@ const int MAX_MOKINIAI = 100;
 const int MAX_PAZYMIU = 10;
 
 int showMenu() {
-  cout << "1 - Įvesti mokinį ir jo pažymius." << endl;
-  cout << "2 - Peržiūrėti visų mokinių pažymius." << endl;
-  cout << "3 - Peržiūrėti konkretaus mokinio pažymius." << endl;
-  cout << "4 - Atnaujinti pažymį." << endl;
-  cout << "5 - Apskaičiuoti mokinio vidurkį." << endl;
-  cout << "6 - Pašalinti mokinį." << endl;
-  cout << "7 - Išeiti." << endl;
+  int pasirinkimas = 0;
+  while (pasirinkimas < 1 || pasirinkimas > 7) {
+    cout << "1 - Įvesti mokinį ir jo pažymius." << endl;
+    cout << "2 - Peržiūrėti visų mokinių pažymius." << endl;
+    cout << "3 - Peržiūrėti konkretaus mokinio pažymius." << endl;
+    cout << "4 - Atnaujinti pažymį." << endl;
+    cout << "5 - Apskaičiuoti mokinio vidurkį." << endl;
+    cout << "6 - Pašalinti mokinį." << endl;
+    cout << "7 - Išeiti." << endl;
 
-  int pasirinkimas;
-  cin >> pasirinkimas;
-
-  if (pasirinkimas < 1 || pasirinkimas > 7) {
-    cout << "Netinkamas pasirinkimas" << endl;
-    return showMenu();
+    cin >> pasirinkimas;
+    if (cin.fail()) {
+      cin.clear();
+      cin.ignore(10000, '\n');
+      pasirinkimas = 0;
+    }
+    if (pasirinkimas < 1 || pasirinkimas > 7)
+      cout << "Netinkamas pasirinkimas." << endl;
   }
+
   return pasirinkimas;
 }
-
 int main() {
   SetConsoleOutputCP(CP_UTF8);
   SetConsoleCP(CP_UTF8);
@@ -42,6 +46,7 @@ int main() {
   while (true) {
     int pasirinkimas = showMenu();
     if (pasirinkimas == 7) {
+      cout << "Viso gero!" << endl;
       break;
     }
 
@@ -88,10 +93,33 @@ int main() {
           cout << pazymiai[i][j] << " ";
         }
         cout << endl;
+      }
+      cout << endl;
+    }
+    if (pasirinkimas == 3) {
+      string vardas;
+      cout << "Įveskite varda: ";
+      cin >> vardas;
+
+      int mokInt = -1;
+
+      for (int i = 0; i < mokiniuKiekis; i++) {
+        if (vardas == vardai[i])
+          mokInt = i;
+      }
+
+      if (mokInt == -1) {
+        cout << "Tokio mokinio nėra!" << endl;
+        continue;
+      } else {
+        cout << vardai[mokInt] << " | ";
+        for (int j = 0; j < pazymiuKiekis[mokInt]; j++) {
+          cout << pazymiai[mokInt][j] << " ";
+        }
+        cout << endl;
         cout << endl;
       }
     }
-
   }
 
   return 0;
