@@ -97,28 +97,26 @@ int main() {
       cout << endl;
     }
     if (pasirinkimas == 3) {
-      string vardas;
-      cout << "Įveskite varda: ";
-      cin >> vardas;
-
-      int mokInt = -1;
-
-      for (int i = 0; i < mokiniuKiekis; i++) {
-        if (vardas == vardai[i])
-          mokInt = i;
-      }
-
-      if (mokInt == -1) {
-        cout << "Tokio mokinio nėra!" << endl;
+      if (mokiniuKiekis == 0) {
+        cout << "Mokiniu sarasas tuscias." << endl;
         continue;
-      } else {
-        cout << vardai[mokInt] << " | ";
-        for (int j = 0; j < pazymiuKiekis[mokInt]; j++) {
-          cout << pazymiai[mokInt][j] << " ";
-        }
-        cout << endl;
-        cout << endl;
       }
+
+      int mokinioNumeris;
+      cout << "Iveskite mokinio numeri (1-" << mokiniuKiekis << "): ";
+      cin >> mokinioNumeris;
+      while (mokinioNumeris < 1 || mokinioNumeris > mokiniuKiekis) {
+        cout << "Neteisingas mokinio numeris. Iveskite skaiciu nuo 1 iki "
+             << mokiniuKiekis << ": ";
+        cin >> mokinioNumeris;
+      }
+
+      int mokinioIndeksas = mokinioNumeris - 1;
+      cout << vardai[mokinioIndeksas] << " | ";
+      for (int j = 0; j < pazymiuKiekis[mokinioIndeksas]; j++) {
+        cout << pazymiai[mokinioIndeksas][j] << " ";
+      }
+      cout << endl << endl;
     }
   }
 
