@@ -118,6 +118,54 @@ int main() {
       }
       cout << endl << endl;
     }
+    if (pasirinkimas == 4) {
+      if (mokiniuKiekis == 0) {
+        cout << "Mokiniu sarasas tuscias." << endl;
+        continue;
+      }
+
+      for (int i = 0; i < mokiniuKiekis; i++) {
+        cout << i + 1 << " - " << vardai[i] << endl;
+      }
+
+      int mokinioNumeris;
+      cout << "Iveskite mokinio numeri (1-" << mokiniuKiekis << "): ";
+      cin >> mokinioNumeris;
+      while (mokinioNumeris < 1 || mokinioNumeris > mokiniuKiekis) {
+        cout << "Neteisingas mokinio numeris. Iveskite skaiciu nuo 1 iki "
+             << mokiniuKiekis << ": ";
+        cin >> mokinioNumeris;
+      }
+
+      // mokinio num to index num
+      int mokinioIndeksas = mokinioNumeris - 1;
+      if (pazymiuKiekis[mokinioIndeksas] == 0) {
+        cout << "Mokinys pazymiu neturi." << endl;
+        continue;
+      }
+
+      int pazymioNumeris;
+      cout << "Iveskite pazymio numeri (1-" << pazymiuKiekis[mokinioIndeksas]
+           << "): ";
+      cin >> pazymioNumeris;
+      while (pazymioNumeris < 1 ||
+             pazymioNumeris > pazymiuKiekis[mokinioIndeksas]) {
+        cout << "Neteisingas pazymio numeris. Iveskite skaiciu nuo 1 iki "
+             << pazymiuKiekis[mokinioIndeksas] << ": ";
+        cin >> pazymioNumeris;
+      }
+
+      int naujasPazymys;
+      cout << "Iveskite nauja pazymi (1-10): ";
+      cin >> naujasPazymys;
+      while (naujasPazymys < 1 || naujasPazymys > 10) {
+        cout << "Iveskite skaiciu nuo 1 iki 10: ";
+        cin >> naujasPazymys;
+      }
+
+      pazymiai[mokinioIndeksas][pazymioNumeris - 1] = naujasPazymys;
+      cout << "Pazymys atnaujintas." << endl;
+    }
   }
 
   return 0;
