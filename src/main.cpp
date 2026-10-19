@@ -23,16 +23,22 @@ int showMenu() {
     cin >> pasirinkimas;
     if (cin.fail()) {
       cin.clear();
+      // ignoruoja 10000 chars po new line
+      // nes kitaip pasidaro recursive loop
       cin.ignore(10000, '\n');
+
       pasirinkimas = 0;
     }
+
     if (pasirinkimas < 1 || pasirinkimas > 7)
       cout << "Netinkamas pasirinkimas." << endl;
   }
 
   return pasirinkimas;
 }
+
 int main() {
+  // UTF8 formatas konsolei kad leistu lietuviskas raides
   SetConsoleOutputCP(CP_UTF8);
   SetConsoleCP(CP_UTF8);
 
@@ -46,11 +52,13 @@ int main() {
 
   while (true) {
     int pasirinkimas = showMenu();
+    // Išeiti.
     if (pasirinkimas == 7) {
       cout << "Viso gero!" << endl;
       break;
     }
 
+    // Įvesti mokinį ir jo pažymius
     if (pasirinkimas == 1) {
       if (mokiniuKiekis == MAX_MOKINIAI) {
         cout << "Mokiniu limitas pasiektas." << endl;
@@ -58,25 +66,32 @@ int main() {
       }
 
       cout << "Iveskite mokinio varda: ";
-      cin >> vardai[mokiniuKiekis];
+      // istrina 10000 characters po \n !!!!
+      cin.ignore(10000, '\n');
+
+      getline(cin, vardai[mokiniuKiekis]);
 
       cout << "Kiek pazymiu? (0-10): ";
       cin >> pazymiuKiekis[mokiniuKiekis];
 
-      // Ivesti kieki tol kol skaicius bus tinkamas...
-      while (pazymiuKiekis[mokiniuKiekis] < 0 ||
+      while (cin.fail() ||
+             pazymiuKiekis[mokiniuKiekis] < 0 ||
              pazymiuKiekis[mokiniuKiekis] > MAX_PAZYMIU) {
+        cin.clear();
+        cin.ignore(10000, '\n');
         cout << "Iveskite skaiciu nuo 0 iki 10: ";
         cin >> pazymiuKiekis[mokiniuKiekis];
       }
+
 
       for (int i = 0; i < pazymiuKiekis[mokiniuKiekis]; i++) {
         cout << "Iveskite " << i + 1 << " pazymi (1-10): ";
         cin >> pazymiai[mokiniuKiekis][i];
 
-        // Įvesti pažymi tol kol bus tinkamas
-        while (pazymiai[mokiniuKiekis][i] < 1 ||
+        while (cin.fail() || pazymiai[mokiniuKiekis][i] < 1 ||
                pazymiai[mokiniuKiekis][i] > 10) {
+          cin.clear();
+          cin.ignore(10000, '\n');
           cout << "Iveskite skaiciu nuo 1 iki 10: ";
           cin >> pazymiai[mokiniuKiekis][i];
         }
@@ -84,6 +99,8 @@ int main() {
 
       mokiniuKiekis++;
     }
+
+    // Peržiūrėti visų mokinių pažymius.
     if (pasirinkimas == 2) {
       cout << "Vardas | Pazymiai" << endl;
       cout << "-----------------" << endl;
@@ -97,6 +114,8 @@ int main() {
       }
       cout << endl;
     }
+
+    // Peržiūrėti konkretaus mokinio pažymius.
     if (pasirinkimas == 3) {
       if (mokiniuKiekis == 0) {
         cout << "Mokiniu sarasas tuscias." << endl;
@@ -119,6 +138,8 @@ int main() {
       }
       cout << endl << endl;
     }
+
+    // Atnaujinti pažymį.
     if (pasirinkimas == 4) {
       if (mokiniuKiekis == 0) {
         cout << "Mokiniu sarasas tuscias." << endl;
@@ -167,6 +188,8 @@ int main() {
       pazymiai[mokinioIndeksas][pazymioNumeris - 1] = naujasPazymys;
       cout << "Pazymys atnaujintas." << endl;
     }
+
+    // Apskaičiuoti mokinio vidurkį.
     if (pasirinkimas == 5) {
       if (mokiniuKiekis == 0) {
         cout << "Mokiniu sarasas tuscias." << endl;
@@ -201,6 +224,39 @@ int main() {
           static_cast<double>(suma) / pazymiuKiekis[mokinioIndeksas];
       cout << vardai[mokinioIndeksas] << " vidurkis: " << fixed
            << setprecision(2) << vidurkis << endl;
+    }
+
+    // Pašalinti mokinį.
+    if (pasirinkimas == 6) {
+      if (mokiniuKiekis == 0) {
+        cout << "Mokiniu sarasas tuscias." << endl;
+        continue;
+      }
+
+      for (int i = 0; i < mokiniuKiekis; i++) {
+        cout << i + 1 << " - " << vardai[i] << endl;
+      }
+
+      int mokinioNumeris;
+      cout << "Iveskite mokinio numeri (1-" << mokiniuKiekis << "): ";
+      cin >> mokinioNumeris;
+      while (mokinioNumeris < 1 || mokinioNumeris > mokiniuKiekis) {
+        cout << "Neteisingas mokinio numeris. Iveskite skaiciu nuo 1 iki "
+             << mokiniuKiekis << ": ";
+        cin >> mokinioNumeris;
+      }
+
+      int mokinioIndeksas = mokinioNumeris - 1;
+      for (int i = mokinioIndeksas; i < mokiniuKiekis - 1; i++) {
+        vardai[i] = vardai[i + 1];
+        pazymiuKiekis[i] = pazymiuKiekis[i + 1];
+        for (int j = 0; j < MAX_PAZYMIU; j++) {
+          pazymiai[i][j] = pazymiai[i + 1][j];
+        }
+      }
+
+      mokiniuKiekis--;
+      cout << "Mokinys pasalintas." << endl;
     }
   }
 
