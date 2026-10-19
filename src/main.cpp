@@ -125,7 +125,10 @@ int main() {
       int mokinioNumeris;
       cout << "Iveskite mokinio numeri (1-" << mokiniuKiekis << "): ";
       cin >> mokinioNumeris;
-      while (mokinioNumeris < 1 || mokinioNumeris > mokiniuKiekis) {
+      while (cin.fail() || mokinioNumeris < 1 ||
+             mokinioNumeris > mokiniuKiekis) {
+        cin.clear();
+        cin.ignore(10000, '\n');
         cout << "Neteisingas mokinio numeris. Iveskite skaiciu nuo 1 iki "
              << mokiniuKiekis << ": ";
         cin >> mokinioNumeris;
@@ -153,7 +156,10 @@ int main() {
       int mokinioNumeris;
       cout << "Iveskite mokinio numeri (1-" << mokiniuKiekis << "): ";
       cin >> mokinioNumeris;
-      while (mokinioNumeris < 1 || mokinioNumeris > mokiniuKiekis) {
+      while (cin.fail() || mokinioNumeris < 1 ||
+             mokinioNumeris > mokiniuKiekis) {
+        cin.clear();
+        cin.ignore(10000, '\n');
         cout << "Neteisingas mokinio numeris. Iveskite skaiciu nuo 1 iki "
              << mokiniuKiekis << ": ";
         cin >> mokinioNumeris;
@@ -170,8 +176,10 @@ int main() {
       cout << "Iveskite pazymio numeri (1-" << pazymiuKiekis[mokinioIndeksas]
            << "): ";
       cin >> pazymioNumeris;
-      while (pazymioNumeris < 1 ||
+      while (cin.fail() || pazymioNumeris < 1 ||
              pazymioNumeris > pazymiuKiekis[mokinioIndeksas]) {
+        cin.clear();
+        cin.ignore(10000, '\n');
         cout << "Neteisingas pazymio numeris. Iveskite skaiciu nuo 1 iki "
              << pazymiuKiekis[mokinioIndeksas] << ": ";
         cin >> pazymioNumeris;
@@ -180,7 +188,9 @@ int main() {
       int naujasPazymys;
       cout << "Iveskite nauja pazymi (1-10): ";
       cin >> naujasPazymys;
-      while (naujasPazymys < 1 || naujasPazymys > 10) {
+      while (cin.fail() || naujasPazymys < 1 || naujasPazymys > 10) {
+        cin.clear();
+        cin.ignore(10000, '\n');
         cout << "Iveskite skaiciu nuo 1 iki 10: ";
         cin >> naujasPazymys;
       }
@@ -203,7 +213,10 @@ int main() {
       int mokinioNumeris;
       cout << "Iveskite mokinio numeri (1-" << mokiniuKiekis << "): ";
       cin >> mokinioNumeris;
-      while (mokinioNumeris < 1 || mokinioNumeris > mokiniuKiekis) {
+      while (cin.fail() || mokinioNumeris < 1 ||
+             mokinioNumeris > mokiniuKiekis) {
+        cin.clear();
+        cin.ignore(10000, '\n');
         cout << "Neteisingas mokinio numeris. Iveskite skaiciu nuo 1 iki "
              << mokiniuKiekis << ": ";
         cin >> mokinioNumeris;
@@ -240,7 +253,10 @@ int main() {
       int mokinioNumeris;
       cout << "Iveskite mokinio numeri (1-" << mokiniuKiekis << "): ";
       cin >> mokinioNumeris;
-      while (mokinioNumeris < 1 || mokinioNumeris > mokiniuKiekis) {
+      while (cin.fail() || mokinioNumeris < 1 ||
+             mokinioNumeris > mokiniuKiekis) {
+        cin.clear();
+        cin.ignore(10000, '\n');
         cout << "Neteisingas mokinio numeris. Iveskite skaiciu nuo 1 iki "
              << mokiniuKiekis << ": ";
         cin >> mokinioNumeris;
